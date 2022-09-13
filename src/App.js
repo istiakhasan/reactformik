@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import InputForm from './components/InputForm';
+import UserTable from './components/UserTable';
 
-function App() {
+const getUserDAta=()=>{
+  const getData=localStorage.getItem('userdata')
+  let data;
+  if(getData){
+     data= JSON.parse(getData)
+     return data
+  }else{
+    return data=[]
+  }
+}
+const App = () => {
+  const [data,setData]=useState(getUserDAta())
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      <div className='w-4/12 mx-auto mb-4'>
+
+       <InputForm  data={data} setData={setData}/>
+      </div>
+
+
+       <div>
+        <UserTable setData={setData} data={data}/>
+       </div>
     </div>
   );
-}
+};
 
 export default App;
